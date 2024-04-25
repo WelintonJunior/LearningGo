@@ -8,9 +8,9 @@ import (
 func main() {
 
 	const INFLATION_RATE = 2.5
-	investmentAmount := 0.0
-	years := 0.0
-	expectedReturnRate := 0.0
+	var investmentAmount float64
+	var years float64
+	var expectedReturnRate float64
 
 	fmt.Print("Insira o valor do investimento: ")
 	fmt.Scan(&investmentAmount)
