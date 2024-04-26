@@ -43,12 +43,12 @@ func New(userFirstName, userLastName, userBirthDate string) (*User, error) {
 	}, nil
 }
 
-func NewAdmin(email, password string) Admin {
+func NewAdmin(email, password string) (*Admin, error) {
 	if email == "" || password == "" {
-
+		return nil, errors.New("Invalid Inputs for admin")
 	}
 
-	return Admin{
+	return &Admin{
 		email:    email,
 		password: password,
 		User: User{
@@ -57,6 +57,6 @@ func NewAdmin(email, password string) Admin {
 			birthDate: "---",
 			createdAt: time.Now(),
 		},
-	}
+	}, nil
 
 }

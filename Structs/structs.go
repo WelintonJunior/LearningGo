@@ -19,7 +19,11 @@ func main() {
 		panic(err)
 	}
 
-	admin := user.NewAdmin("Yasmin", "2206")
+	admin, err := user.NewAdmin("Yasmin", "2206")
+
+	if err != nil {
+		panic(err)
+	}
 
 	admin.User.OutputUserDetailes()
 	admin.User.ClearUserName()
