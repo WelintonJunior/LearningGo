@@ -19,52 +19,41 @@ func main() {
 		var choice int
 		fmt.Scan(&choice)
 
-		// switch choice {
-		// case 1:
-		// 	break
-		// case 2:
-		// 	break
-		// case 3:
-		// 	break
-		// default:
-		// 	break
-		// }
-
-		if choice == 1 {
+		switch choice {
+		case 1:
 			fmt.Printf("Your Balace is: %.1f", accountBalance)
-		} else if choice == 2 {
+		case 2:
 			fmt.Println("How much?: ")
 			depositedMoney := 0.0
 			fmt.Scan(&depositedMoney)
 
 			if depositedMoney <= 0 {
 				fmt.Println("Invalid amount. Must be greater than 0.")
-				return
+				continue
 			}
 
 			accountBalance += depositedMoney
 			fmt.Printf("Balance Updated! New Amount: %.1f", accountBalance)
-		} else if choice == 3 {
+		case 3:
 			fmt.Println("How much?: ")
 			withdrawMoney := 0.0
 			fmt.Scan(&withdrawMoney)
 
 			if withdrawMoney <= 0 {
 				fmt.Println("Invalid amount. Must be greater than 0.")
-				return
+				continue
 			}
 
 			if withdrawMoney > accountBalance {
 				fmt.Println("You don't have this money in your balance!")
-				return
+				continue
 			}
 
 			accountBalance -= withdrawMoney
 			fmt.Printf("Balance Updated! New Amount: %.1f", accountBalance)
-		} else {
+		default:
 			isRunning = 1
 			fmt.Println("GoodBye!")
-			return
 		}
 	}
 
