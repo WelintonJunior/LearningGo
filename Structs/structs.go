@@ -12,18 +12,26 @@ type User struct {
 	createdAt time.Time
 }
 
-func main() {
-	user := new(User)
-	user.firstName = getUserData("Please enter your first name: ")
-	user.lastName = getUserData("Please enter your last name: ")
-	user.birthDate = getUserData("Please enter your birth date (DD/MM/YYYY): ")
-	user.createdAt = time.Now()
-
-	outputUserDetailes(user)
+func (u User) outputUserDetailes() {
+	fmt.Println(u.firstName, u.lastName, u.birthDate, u.createdAt)
 }
 
-func outputUserDetailes(u *User) {
-	fmt.Println(u.firstName, u.lastName, u.birthDate, u.createdAt)
+func main() {
+	userFirstName := getUserData("Please enter your first name: ")
+	userLastName := getUserData("Please enter your last name: ")
+	userBirthDate := getUserData("Please enter your birth date (DD/MM/YYYY): ")
+	userCreatedAt := time.Now()
+
+	var appUser User
+
+	appUser = User{
+		firstName: userFirstName,
+		lastName:  userLastName,
+		birthDate: userBirthDate,
+		createdAt: userCreatedAt,
+	}
+
+	appUser.outputUserDetailes()
 }
 
 func getUserData(promptText string) string {
