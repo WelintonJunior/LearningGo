@@ -13,14 +13,19 @@ type User struct {
 }
 
 func (u User) outputUserDetailes() {
-	fmt.Println(u.firstName, u.lastName, u.birthDate, u.createdAt)
+	fmt.Println(u.firstName, u.lastName, u.birthDate)
+}
+
+func (u *User) clearUserName() {
+	u.firstName = ""
+	u.lastName = ""
 }
 
 func main() {
 	userFirstName := getUserData("Please enter your first name: ")
 	userLastName := getUserData("Please enter your last name: ")
 	userBirthDate := getUserData("Please enter your birth date (DD/MM/YYYY): ")
-	userCreatedAt := time.Now()
+	// userCreatedAt := time.Now()
 
 	var appUser User
 
@@ -28,9 +33,11 @@ func main() {
 		firstName: userFirstName,
 		lastName:  userLastName,
 		birthDate: userBirthDate,
-		createdAt: userCreatedAt,
+		// createdAt: userCreatedAt,
 	}
 
+	appUser.outputUserDetailes()
+	appUser.clearUserName()
 	appUser.outputUserDetailes()
 }
 
