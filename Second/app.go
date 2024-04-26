@@ -4,23 +4,28 @@ import "fmt"
 
 func main() {
 
-	var revenue float64
-	var expenses float64
-	var taxRate float64
+	revenue := showAsnwer("What the Revenue: ")
+	expenses := showAsnwer("What the Expenses: ")
+	taxRate := showAsnwer("What the Tax Rate: ")
 
-	fmt.Print("What the revenue?: ")
-	fmt.Scan(&revenue)
-	fmt.Print("What the expenses?: ")
-	fmt.Scan(&expenses)
-	fmt.Print("What the tax rate?: ")
-	fmt.Scan(&taxRate)
+	ebt, profit, ratio := calculate(revenue, expenses, taxRate)
 
-	ebt := revenue - expenses
-	profit := ebt * (1 - taxRate/100)
-	ratio := ebt / profit
+	fmt.Printf("The EBT is: %.1f\nYour profit is: %.1f\nYour Ratio is: %.3f", ebt, profit, ratio)
+}
 
-	fmt.Println("The EBT is: ", ebt)
-	fmt.Println("Your Profit is: ", profit)
-	fmt.Println("The Ratio is: ", ratio)
+func showAsnwer(text string) float64 {
+	var userInput float64
+	fmt.Print(text)
+	fmt.Scan(&userInput)
+	return userInput
+}
+
+func calculate(revenue, expenses, taxRate float64) (float64, float64, float64) {
+
+	ebtCalc := revenue - expenses
+	profitCalc := ebtCalc * (1 - taxRate/100)
+	ratioCalc := ebtCalc / profitCalc
+
+	return ebtCalc, profitCalc, ratioCalc
 
 }
