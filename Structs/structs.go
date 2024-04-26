@@ -19,6 +19,12 @@ func main() {
 		panic(err)
 	}
 
+	admin := user.NewAdmin("Yasmin", "2206")
+
+	admin.User.OutputUserDetailes()
+	admin.User.ClearUserName()
+	admin.User.OutputUserDetailes()
+
 	appUser.OutputUserDetailes()
 	appUser.ClearUserName()
 	appUser.OutputUserDetailes()
