@@ -4,12 +4,14 @@ import (
 	"fmt"
 
 	"example.com/bank/fileops"
+	"github.com/Pallinder/go-randomdata"
 )
 
 const accountBalanceFile = "balance.txt"
 
 func main() {
 
+	fmt.Print(randomdata.FullName(randomdata.Female))
 	var isRunning int = 0
 
 	for isRunning == 0 {
