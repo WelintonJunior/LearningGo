@@ -10,7 +10,7 @@ func main() {
 	numOfApples := 20
 	numOfApplesPointer := &numOfApples
 	numOfApplesAfterEat5(numOfApplesPointer)
-	fmt.Print(*numOfApplesPointer)
+	fmt.Print(numOfApples)
 }
 
 func numOfApplesAfterEat5(numOfApples *int) {
