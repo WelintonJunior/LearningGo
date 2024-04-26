@@ -51,6 +51,17 @@ func main() {
 
 }
 
+func printSomething(value any) {
+	switch value.(type) {
+	case int:
+		fmt.Println("int", value)
+	case float64:
+		fmt.Println("float", value)
+	case string:
+		fmt.Println("string", value)
+	}
+}
+
 func outputData(data outputtable) {
 	data.Display()
 	saveData(data)
