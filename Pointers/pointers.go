@@ -9,10 +9,11 @@ func main() {
 
 	numOfApples := 20
 	numOfApplesPointer := &numOfApples
-	realNumOfApples := numOfApplesAfterEat5(numOfApplesPointer)
-	fmt.Print(realNumOfApples)
+	numOfApplesAfterEat5(numOfApplesPointer)
+	fmt.Print(*numOfApplesPointer)
 }
 
-func numOfApplesAfterEat5(numOfApples *int) int {
-	return *numOfApples - 5
+func numOfApplesAfterEat5(numOfApples *int) {
+	// return *numOfApples - 5
+	*numOfApples = *numOfApples - 5
 }
