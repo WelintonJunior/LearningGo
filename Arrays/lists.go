@@ -12,7 +12,12 @@ func main() {
 	// criar outro array com o novo valor
 	// updatedPrices := append(prices, 5)
 
-	prices = prices[:1]
+	// prices = prices[:1]
+
+	// fmt.Print( /*updatedPrices, */ prices)
+
+	discountPrices := []float64{101.99, 80.88, 20.59}
+	prices = append(prices, discountPrices...)
 
 	fmt.Print( /*updatedPrices, */ prices)
 
