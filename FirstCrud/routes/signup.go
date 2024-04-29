@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"example.com/crud/models"
+	"example.com/crud/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -33,10 +34,17 @@ func Login(context *gin.Context) {
 	}
 
 	if err := cliente.ValidateCredentials(); err != nil {
-		context.JSON(http.StatusUnauthorized, gin.H{"messsage": "Erro ao fazer login", "error": err})
+		context.JSON(http.StatusUnauthorized, gin.H{"messsage": "Não foi possivel autenticar", "error": err})
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"messsage": "Sucesso!"})
+	token, err := utils.GenerateToken(cliente.CliEmail, cliente.CliId)
+
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"messsage": "Não foi possivel autenticarr", "error": err})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"messsage": "Sucesso!", "token": token})
 
 }

@@ -114,10 +114,10 @@ func (c Cliente) Delete() error {
 }
 
 func (c Cliente) ValidateCredentials() error {
-	query := "select cliPassword from tblCLI_Cliente where cliEmail = ?"
+	query := "select cliID, cliPassword from tblCLI_Cliente where cliEmail = ?"
 	row := db.DB.QueryRow(query, c.CliEmail)
 	var retrievedPassword string
-	if err := row.Scan(&retrievedPassword); err != nil {
+	if err := row.Scan(&c.CliId, &retrievedPassword); err != nil {
 		return errors.New("Credentials invalid")
 	}
 
