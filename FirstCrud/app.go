@@ -28,6 +28,7 @@ func main() {
 
 	server.Use(CORSMiddleware())
 	routes.ClienteRoutes(server)
+	routes.SignupRoutes(server)
 
 	server.Run(":3000")
 }

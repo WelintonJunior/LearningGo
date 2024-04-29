@@ -9,3 +9,7 @@ func ClienteRoutes(server *gin.Engine) {
 	server.PUT("/UpdateCliente", UpdateCliente)
 	server.DELETE("/DeleteCliente", DeleteCliente)
 }
+
+func SignupRoutes(server *gin.Engine) {
+	server.POST("/Signup", Signup)
+}

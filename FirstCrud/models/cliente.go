@@ -1,16 +1,20 @@
 package models
 
-import "example.com/crud/db"
+import (
+	"example.com/crud/db"
+	"example.com/crud/utils"
+)
 
 type Cliente struct {
 	CliId       int64
 	CliNome     string
 	CliEmail    string
+	CliPassword string
 	CliTelefone string
 }
 
 func (c Cliente) New() error {
-	query := "insert into tblCLI_Cliente(cliNome, cliEmail, cliTelefone) values (?, ?, ?)"
+	query := "insert into tblCLI_Cliente(cliNome, cliEmail, cliPassword, cliTelefone) values (?, ?, ?, ?)"
 	stmt, err := db.DB.Prepare(query)
 
 	if err != nil {
@@ -19,7 +23,13 @@ func (c Cliente) New() error {
 
 	defer stmt.Close()
 
-	_, err = stmt.Exec(c.CliNome, c.CliEmail, c.CliTelefone)
+	hashed, err := utils.HashPassword(c.CliPassword)
+
+	if err != nil {
+		return err
+	}
+
+	_, err = stmt.Exec(c.CliNome, c.CliEmail, hashed, c.CliTelefone)
 
 	if err != nil {
 		return err
@@ -30,7 +40,7 @@ func (c Cliente) New() error {
 
 func List() ([]Cliente, error) {
 	var clientes []Cliente
-	query := "select * from tblCLI_Cliente"
+	query := "select cliID, cliNome, cliEmail, cliTelefone from tblCLI_Cliente"
 	rows, err := db.DB.Query(query)
 
 	if err != nil {
@@ -50,7 +60,7 @@ func List() ([]Cliente, error) {
 }
 
 func Read(CliID int64) (Cliente, error) {
-	query := "select * from tblCLI_Cliente where cliID = ?"
+	query := "select cliID, cliNome, cliEmail, cliTelefone from tblCLI_Cliente where cliID = ?"
 
 	row := db.DB.QueryRow(query, CliID)
 
