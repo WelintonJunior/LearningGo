@@ -49,6 +49,20 @@ func List() ([]Cliente, error) {
 	return clientes, nil
 }
 
+func Read(CliID int64) (Cliente, error) {
+	query := "select * from tblCLI_Cliente where cliID = ?"
+
+	row := db.DB.QueryRow(query, CliID)
+
+	var cliente Cliente
+
+	if err := row.Scan(&cliente.CliId, &cliente.CliNome, &cliente.CliEmail, &cliente.CliTelefone); err != nil {
+		return Cliente{}, err
+	}
+
+	return cliente, nil
+}
+
 func (c Cliente) Update() error {
 	query := `update tblCLI_Cliente set cliNome = ?, cliEmail = ?, cliTelefone = ? where cliID = ?`
 	stmt, err := db.DB.Prepare(query)

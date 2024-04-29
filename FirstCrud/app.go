@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
+	"strconv"
 
 	"example.com/crud/db"
 	"example.com/crud/models"
@@ -32,7 +32,8 @@ func main() {
 	server.Use(CORSMiddleware())
 
 	server.POST("/CreateCliente", CreateCliente)
-	server.GET("/ReadCliente", ReadCliente)
+	server.GET("/ReadClientes", ReadClientes)
+	server.GET("/ReadCliente/:id", ReadCliente)
 	server.PUT("/UpdateCliente", UpdateCliente)
 	server.DELETE("/DeleteCliente", DeleteCliente)
 
@@ -47,8 +48,6 @@ func CreateCliente(context *gin.Context) {
 		return
 	}
 
-	fmt.Println(cliente)
-
 	if err := models.Cliente.New(cliente); err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": "Falha ao criar cliente", "error": err})
 		return
@@ -57,7 +56,7 @@ func CreateCliente(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{"message": "Sucesso!"})
 }
 
-func ReadCliente(context *gin.Context) {
+func ReadClientes(context *gin.Context) {
 	clientes, err := models.List()
 
 	if err != nil {
@@ -66,6 +65,18 @@ func ReadCliente(context *gin.Context) {
 	}
 
 	context.JSON(http.StatusOK, clientes)
+}
+
+func ReadCliente(context *gin.Context) {
+	clienteId, _ := strconv.ParseInt(context.Param("id"), 10, 64)
+	cliente, err := models.Read(clienteId)
+
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Erro ao coletar dados", "error": err})
+		return
+	}
+
+	context.JSON(http.StatusOK, cliente)
 }
 
 func UpdateCliente(context *gin.Context) {
