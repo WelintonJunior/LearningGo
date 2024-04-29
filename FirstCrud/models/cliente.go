@@ -1,6 +1,8 @@
 package models
 
 import (
+	"errors"
+
 	"example.com/crud/db"
 	"example.com/crud/utils"
 )
@@ -109,4 +111,19 @@ func (c Cliente) Delete() error {
 	}
 
 	return nil
+}
+
+func (c Cliente) ValidateCredentials() error {
+	query := "select cliPassword from tblCLI_Cliente where cliEmail = ?"
+	row := db.DB.QueryRow(query, c.CliEmail)
+	var retrievedPassword string
+	if err := row.Scan(&retrievedPassword); err != nil {
+		return errors.New("Credentials invalid")
+	}
+
+	if validateCredential := utils.CheckHashPassword(c.CliPassword, retrievedPassword); validateCredential {
+		return nil
+	} else {
+		return errors.New("Credentials invalid")
+	}
 }

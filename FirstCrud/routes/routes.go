@@ -12,4 +12,5 @@ func ClienteRoutes(server *gin.Engine) {
 
 func SignupRoutes(server *gin.Engine) {
 	server.POST("/Signup", Signup)
+	server.POST("/Login", Login)
 }
