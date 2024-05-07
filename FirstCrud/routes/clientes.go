@@ -9,6 +9,13 @@ import (
 )
 
 func CreateCliente(context *gin.Context) {
+	token := context.Request.Header.Get("Authorization")
+
+	if token == "" {
+		context.JSON(http.StatusUnauthorized, gin.H{"message": "Unauthorized"})
+		return
+	}
+
 	var cliente models.Cliente
 
 	if err := context.ShouldBindJSON(&cliente); err != nil {
@@ -48,6 +55,13 @@ func ReadCliente(context *gin.Context) {
 }
 
 func UpdateCliente(context *gin.Context) {
+	token := context.Request.Header.Get("Authorization")
+
+	if token == "" {
+		context.JSON(http.StatusUnauthorized, gin.H{"message": "Unauthorized"})
+		return
+	}
+
 	var cliente models.Cliente
 
 	if err := context.ShouldBindJSON(&cliente); err != nil {
@@ -64,6 +78,13 @@ func UpdateCliente(context *gin.Context) {
 }
 
 func DeleteCliente(context *gin.Context) {
+	token := context.Request.Header.Get("Authorization")
+
+	if token == "" {
+		context.JSON(http.StatusUnauthorized, gin.H{"message": "Unauthorized"})
+		return
+	}
+
 	var cliente models.Cliente
 
 	if err := context.ShouldBindJSON(&cliente); err != nil {
