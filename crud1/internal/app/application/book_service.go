@@ -16,3 +16,11 @@ func NewBookService(repo repository.BookRepository) *BookService {
 func (s *BookService) NewBook(b domain.Book) error {
 	return s.repo.NewBook(b)
 }
+
+func (s *BookService) ListBooks() ([]domain.Book, error) {
+	return s.repo.ListBooks()
+}
+
+func (s *BookService) ListBooksNoRoutine() ([]domain.Book, error) {
+	return s.repo.ListBooksNoRoutine()
+}
